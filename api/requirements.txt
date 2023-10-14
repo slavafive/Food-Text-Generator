@@ -6,3 +6,5 @@ Jinja2
 MarkupSafe
 python-dotenv==0.17.1
 Werkzeug==2.2.2
+requests
+transformers
