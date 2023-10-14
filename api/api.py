@@ -6,6 +6,8 @@ import os
 from io import BytesIO
 import requests
 from transformers import pipeline
+from api.model_response import GenerationStatus, ModelResponse
+
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 
@@ -33,10 +35,23 @@ def read_image(url):
     return image
 
 
-def generate_text(url):
-    result = image_to_text(url)
-    generated_text = result[0]['generated_text']
-    return generated_text
+def generate_text(id, url):
+    try:
+        print(f"Processing url: {url}")
+        result = image_to_text(url)
+        print(f"Successfully processed url: {url}")
+        response = ModelResponse(id=id, status=GenerationStatus.OK, description='', generated_text=result[0]['generated_text'])
+    except Exception as e:
+        print(f"Error while processing url: {url}")
+        response = ModelResponse(id=id, status=GenerationStatus.INCORRECT_IMAGE_SOURCE, description='', generated_text='')
+    return response
+
+
+def generate_texts(urls):
+    responses = [generate_text(id, url) for id, url in enumerate(urls, 1)]
+    statuses = ModelResponse.get_statuses(responses)
+    print(f"Statuses: {statuses}")
+    return ModelResponse.generate_error_message(statuses) if len(statuses) > 0 else '\n'.join([response.generated_text for response in responses])
 
 
 @app.route('/api/generate', methods=['POST'])
@@ -44,13 +59,8 @@ def generate():
     data = request.data
     parsed_data = json.loads(data.decode('utf-8'))
     urls = parsed_data['urls']
-    # image = read_image(urls[0])
-    generated_text = generate_text(urls[0])
-    return jsonify({'generated_text': generated_text})
-
-
-@app.route('/api/upload', methods=['POST'])
-def upload():
-    print(request.data)
-    file = request.files['file']
-    file.save(os.path.join('111.jpg'))
+    urls = [url for url in urls if url is not None]
+    print(urls)
+    text = generate_texts(urls)
+    print(text)
+    return jsonify({'generated_text': text}), 200
