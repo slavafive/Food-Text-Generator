@@ -30,5 +30,5 @@ class ModelResponse:
         # message = "The following errors were found:\n"
         message = ''
         for status, ids in statuses.items():
-            message += f"Link{'s' if len(ids) == 1 else ''} {', '.join(map(str, ids))} contain{'s' if len(ids) == 1 else ''} {status}."
+            message += f"Link{'s' if len(ids) > 1 else ''} {', '.join(map(str, ids))} contain{'s' if len(ids) == 1 else ''} {status}."
         return message
