@@ -44,5 +44,5 @@ class TextGenerator:
     def generate(self, descriptions, restaurant="Daddy Burgers", word_number=100):
         formatted_descriptions = self._format_descriptions(descriptions)
         print(f"Formatted descriptions:\n{formatted_descriptions}")
-        return self.template.format(descriptions=formatted_descriptions, word_number=word_number, restaurant=restaurant)
-        # return self.llm_chain.run(restaurant=restaurant, word_number=word_number, descriptions=formatted_descriptions).strip()
+        # return self.template.format(descriptions=formatted_descriptions, word_number=word_number, restaurant=restaurant)
+        return self.llm_chain.run(restaurant=restaurant, word_number=word_number, descriptions=formatted_descriptions).strip()
