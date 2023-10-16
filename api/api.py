@@ -49,13 +49,12 @@ def read_image(url):
 
 def generate_text(id, url):
     try:
-        print(f"Processing url: {url}")
+        if url == '' or url is None:
+            return ModelResponse(id=id, status=GenerationStatus.EMPTY_URL, description='', generated_text=None)
         result = image_to_text(url)
-        print(f"Successfully processed url: {url}")
         response = ModelResponse(id=id, status=GenerationStatus.OK,
                                  description='', generated_text=result[0]['generated_text'])
-    except Exception as e:
-        print(f"Error while processing url: {url}")
+    except Exception:
         response = ModelResponse(
             id=id, status=GenerationStatus.INCORRECT_IMAGE_SOURCE, description='', generated_text='')
     return response
@@ -70,14 +69,27 @@ def generate_image_to_texts(urls):
     return {'error': False, 'text': [response.generated_text for response in responses]}
 
 
+def check_url_errors(urls):
+    url_is_provided = False
+    for url in urls:
+        if url is not None and url != '':
+            if not url.startswith('http://') and not url.startswith('https://'):
+                return {'error': True, 'message': 'All URLs must start with "http://" or "https://"'}
+            url_is_provided = True
+    if not url_is_provided:
+        return {'error': True, 'message': 'At least one URL must be provided as input'}
+    return {'error': False}
+
+
 @app.route('/api/generate', methods=['POST'])
 def generate():
     params = json.loads(request.data.decode('utf-8'))
     urls = params['urls']
-    urls = [url for url in urls if url is not None and url != '']
-    print('URLs:\n', urls)
-    if len(urls) == 0:
-        return jsonify({'message': 'At least one URL must be provided'}), 400
+    if params['restaurant'] is None or params['restaurant'] == '':
+        return jsonify({'message': 'The name of the restaurant is not provided'}), 400
+    input_errors = check_url_errors(urls)
+    if input_errors['error']:
+        return jsonify({'message': input_errors['message']}), 400
     image_to_text_result = generate_image_to_texts(urls)
     if image_to_text_result['error']:
         return jsonify({'message': image_to_text_result['text']}), 400
@@ -88,4 +100,16 @@ def generate():
         word_number=params['wordNumber']
     )
     print(f'Text to text: {text_to_text_result}')
-    return jsonify({'image_captions': image_to_text_result['text'], 'generated_text': text_to_text_result}), 200
+    tags = {
+        1: ['fruit', 'banana', 'burger'],
+        2: ['kiwi', 'spaghetti'],
+        3: ['kiwi'],
+        4: ['kiwi'],
+        5: ['fruit', 'banana', 'burger'],
+        6: ['kiwi', 'spaghetti'],
+        7: ['kiwi'],
+        8: ['kiwi'],
+        9: ['orange']
+
+    }
+    return jsonify({'image_captions': image_to_text_result['text'], 'generated_text': text_to_text_result, 'tags': tags}), 200

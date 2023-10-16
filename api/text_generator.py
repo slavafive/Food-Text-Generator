@@ -32,17 +32,19 @@ class TextGenerator:
         return ", ".join(items[:-1]) + " and " + items[-1] if len(items) > 1 else items[0]
 
     def _format_description(self, description: str):
+        if description == '' or description is None:
+            return ''
         left_description, items = extract_items(string=description, pattern=self.food_pattern)
         if len(items) == 0:
             left_description, items = extract_items(string=left_description, pattern=self.furniture_pattern)
         return self._join_extracted_items(items) if len(items) >= 1 else ''
 
     def _format_descriptions(self, descriptions: list):
-        formatted_descriptions = filter(lambda x: x != '', map(self._format_description, descriptions))
+        formatted_descriptions = filter(lambda x: x != '' and x is not None, map(self._format_description, descriptions))
         return '\n'.join([f"{i}. {description}" for i, description in enumerate(formatted_descriptions, 1)])
 
     def generate(self, descriptions, restaurant="Daddy Burgers", word_number=100):
         formatted_descriptions = self._format_descriptions(descriptions)
         print(f"Formatted descriptions:\n{formatted_descriptions}")
-        # return self.template.format(descriptions=formatted_descriptions, word_number=word_number, restaurant=restaurant)
-        return self.llm_chain.run(restaurant=restaurant, word_number=word_number, descriptions=formatted_descriptions).strip()
+        return self.template.format(descriptions=formatted_descriptions, word_number=word_number, restaurant=restaurant)
+        # return self.llm_chain.run(restaurant=restaurant, word_number=word_number, descriptions=formatted_descriptions).strip()

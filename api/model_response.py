@@ -5,6 +5,7 @@ class GenerationStatus:
 
     OK = 'no errors'
     INCORRECT_IMAGE_SOURCE = 'incorrect image source'
+    EMPTY_URL = 'empty url'
 
 
 class ModelResponse:
@@ -19,7 +20,7 @@ class ModelResponse:
     def get_statuses(model_responses):
         statuses = defaultdict(lambda: [])
         for model_response in model_responses:
-            if model_response.status != GenerationStatus.OK:
+            if model_response.status == GenerationStatus.INCORRECT_IMAGE_SOURCE:
                 statuses[model_response.status].append(model_response.id)
         return statuses
 

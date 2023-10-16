@@ -1,5 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "./App.css";
+
+function TagList({ tags }) {
+  return (
+    <>
+      {tags.map((tagName) => (
+        <span className="tag">{tagName}</span>
+      ))}
+    </>
+  );
+}
 
 function App() {
   const MIN_WORD_NUMBER = 50;
@@ -13,6 +23,12 @@ function App() {
   const [urlNumber, setUrlNumber] = useState(MIN_URL_NUMBER);
   const [showLoader, setShowLoader] = useState(false);
 
+  const emptyTags = [];
+  for (let i = 0; i < MAX_URL_NUMBER; i++) {
+    emptyTags.push([]);
+  }
+  const [tags, setTags] = useState(emptyTags);
+
   const [wordNumber, setWordNumber] = useState(
     (MIN_WORD_NUMBER + MAX_WORD_NUMBER) / 2
   );
@@ -23,7 +39,6 @@ function App() {
   };
 
   const updateUrls = (newUrl, index) => {
-    console.log(newUrl, index);
     for (let i = 0; i <= urls.length; i++) {
       if (i == index) {
         urls[i] = newUrl;
@@ -54,8 +69,18 @@ function App() {
       console.log("Generated text:");
       console.log(data);
       setGeneratedText(data["generated_text"]);
+      console.log("Tags:", data["tags"]);
+      const newTags = [];
+      for (const [index, indexTags] of Object.entries(data["tags"])) {
+        newTags.push(indexTags);
+      }
+      for (let i = Object.keys(data["tags"]).length; i < MAX_URL_NUMBER; i++) {
+        newTags.push([]);
+      }
+      console.log("New tags:", newTags);
+      setTags(newTags);
     } else {
-      alert(data["message"])
+      alert(data["message"]);
     }
   };
 
@@ -108,35 +133,33 @@ function App() {
         </div>
         <br />
         <form onSubmit={onSubmit}>
-          <div style={{ height: "370px" }}>
+          <div style={{ height: "auto" }}>
             {Array.from(Array(MAX_URL_NUMBER).keys()).map((index) => (
-              <div>
-                <label>
-                  <span hidden={urlNumber <= index} style={{ fontSize: 20 }}>
-                    {index + 1}
-                    <input
-                      id={"input" + index}
-                      name={"input" + index}
-                      defaultValue=""
-                      type="text"
-                      index={urls[index]}
-                      onChange={(e) => updateUrls(e.target.value, index)}
-                      style={{ width: "400px", margin: "5px 20px" }}
-                    />
-                    <button
-                      type="button"
-                      className="round-button"
-                      onClick={(e) => {
-                        document.getElementById("input" + index).value = "";
-                        updateUrls("", index);
-                      }}
-                    >
-                      x
-                    </button>
-                  </span>
-                </label>
-                <br />
-              </div>
+              <span hidden={urlNumber <= index} style={{ fontSize: 20 }}>
+                {index + 1}
+                <input
+                  id={"input" + index}
+                  name={"input" + index}
+                  defaultValue=""
+                  type="text"
+                  index={urls[index]}
+                  onChange={(e) => updateUrls(e.target.value, index)}
+                  style={{ width: "400px", margin: "6px 20px" }}
+                />
+                <button
+                  type="button"
+                  className="round-button"
+                  onClick={(e) => {
+                    document.getElementById("input" + index).value = "";
+                    updateUrls("", index);
+                  }}
+                >
+                  x
+                </button>
+                <div style={{ marginTop: "-8px" }}>
+                  <TagList tags={tags[index]} />
+                </div>
+              </span>
             ))}
           </div>
 
@@ -144,7 +167,7 @@ function App() {
             type="submit"
             value="Generate"
             className="action-button"
-            style={{ fontFamily: "inherit" }}
+            style={{ marginTop: "50px" }}
           />
           <br />
           <br />
