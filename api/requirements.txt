@@ -11,4 +11,5 @@ transformers
 langchain
 openai
 pillow
+nltk
 torch

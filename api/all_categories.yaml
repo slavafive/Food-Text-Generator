@@ -1,0 +1,254 @@
+- fruit:
+    - fruit
+    - apple
+    - "banana 🍌": banana
+    - "cherry 🍒": cherry
+    - fig
+    - grape
+    - huckleberry
+    - "kiwi 🥝": kiwi
+    - "lemon 🍋": lemon
+    - "mango 🥭": mango 
+    - "nectarine 🍊": nectarine
+    - "orange 🍊": orange
+    - "peach 🍑": peach
+    - quince
+    - "raspberry"
+    - "strawberry 🍓": strawberry
+    - tangerine
+    - "watermelon 🍉": watermelon
+    - apricot
+    - "blueberry 🫐": blueberry
+    - "coconut 🥥": coconut
+    - gooseberry
+    - honeydew
+    - jackfruit
+    - lime
+    - papaya
+    - 'pineapple 🍍': pineapple
+    - 'raisin 🍇': raisin
+    - 'tomato 🍅': tomato
+    - 'avocado 🥑': avocado
+    - blackberry
+    - cranberry
+    - grapefruit
+    - lychee
+- vegetable:
+    - vegetable
+    - artichoke
+    - asparagus
+    - beet
+    - 'pepper 🫑': pepper
+    - 'broccoli 🥦': broccoli
+    - 'cabbage 🥬': cabbage
+    - 'carrot 🥕': carrot
+    - cauliflower
+    - celery
+    - 'cucumber 🥒': cucumber
+    - 'eggplant 🍆': eggplant
+    - 'garlic 🧄': garlic
+    - bean
+    - kale
+    - leek
+    - 'lettuce 🥬': lettuce
+    - 'mushroom 🍄': mushroom
+    - okra
+    - 'onion 🧅': onion
+    - pea
+    - 'potato 🥔': potato
+    - 'pumpkin 🎃': pumpkin
+    - radish
+    - spinach
+    - squash
+    - 'tomato 🍅': tomato
+    - turnip
+    - zucchini
+    - acorn
+    - butternut
+    - chickpea
+    - champignon
+    - chard
+    - kale
+    - rutabaga
+    - watercress
+- grain:
+    - grain
+    - barley
+    - buckwheat
+    - 'corn 🌽': corn
+    - farro
+    - flaxseed
+    - kamut
+    - millet
+    - quinoa
+    - 'rice 🍚': rice
+    - rye
+    - sorghum
+    - spelt
+    - teff
+    - triticale
+    - 'wheat 🌾': wheat
+    - amaranth
+    - bulgur
+    - chia
+    - couscous
+- soup:
+    - 'soup 🍲': soup
+    - 'noodle 🍜': noddle
+    - clam chowder
+    - french onion
+    - gazpacho
+    - lentil
+    - 'minestrone 🍲': minestrone
+    - miso
+    - potato leek
+    - 'chili con carne 🌶': 'chili con carne'
+    - chowder
+    - corn chowder
+    - hot and sour
+    - pho
+    - 'ramen 🍜': ramen
+    - seafood
+- snack:
+    - snack
+    - calamari
+    - chips: chips
+    - 'fries 🍟': fries
+    - garlic bread
+    - guacamole
+    - jalapeno
+    - mozzarella
+    - nachos
+    - 'onion rings 🧅': "onion rings"
+    - quesadillas: "quesadillas"
+    - sliders
+    - rolls: "rolls"
+    - tempura
+    - tortilla
+- meat:
+    - 'meat 🍖': meat
+    - 'beef 🥩': beef
+    - 'bacon 🥓': bacon
+    - 'chicken 🍗': chicken
+    - 'nuggets 🍗': "(chicken|fish)?-?nuggets"
+    - cutlet
+    - 'duck 🦆': duck
+    - 'goat 🐐': goat
+    - ham
+    - lamb
+    - 'pork 🐷': pork
+    - 'rabbit 🐰': rabbit
+    - 'turkey 🦃': turkey
+    - veal
+    - bison
+    - elk
+    - 'kangaroo 🦘': kangaroo
+    - quail
+    - venison
+    - boar
+    - sausage
+    - grouse
+    - ostrich
+    - squirrel
+    - yak
+    - 'steak 🥩': steak
+- fish:
+    - 'fish 🍣': fish
+    - anchovy
+    - catfish
+    - cod
+    - haddock
+    - halibut
+    - mackerel
+    - 'salmon 🍣': salmon
+    - sardines: "sardines"
+    - shark
+    - snapper
+    - swordfish
+    - tilapia
+    - trout
+    - tuna
+    - walleye
+    - whitefish
+    - yellowtail
+- "milk products":
+    - 'butter 🧈': butter
+    - buttermilk
+    - 'cheese 🧀': cheese
+    - 'cream 🍦': cream
+    - ghee
+    - "ice cream 🍦": "ice cream"
+    - kefir
+    - 'milk 🥛': milk
+    - parmesan
+    - ricotta
+    - "sour cream": "sour cream"
+    - yogurt
+- drinks:
+    - 'drink 🍷': drink
+    - 'coffee ☕️': coffee
+    - 'tea 🫖': tea
+    - 'water 💧': water
+    - soda
+    - 'juice 🧃': juice
+    - 'cocktail 🍸': cocktail
+    - lemonade
+    - 'beer 🍺': beer
+    - 'wine 🍷': wine
+    - whiskey
+    - margarita
+    - mojito
+    - martini
+    - daiquiri
+    - gin
+    - tonic
+    - vodka
+    - cacao
+    - "coca-cola": "(coco)-?cola"
+    - pepsi: "pepsi"
+    - fanta
+    - sprite
+    - oasis
+- sauce:
+    - sauce
+    - 'ketchup 🥫': 'ketchup'
+    - mustard
+    - mayonnaise
+    - salsa
+    - soy
+    - teriyaki
+- other:
+    - 'porridge 🥣': porridge
+    - 'egg 🥚': egg
+    - barbecue
+    - hotdog 🌭'
+    - tartar
+    - tarama
+    - 'croissant 🥐': croissant
+    - 'bread 🍞': bread
+    - 'omelet 🍳': omelet
+    - "burger 🍔": "(ham|cheese)?burger"
+    - lasagna
+    - pasta
+    - 'spaghetti 🍝': spaghetti
+    - 'bolognese 🍝': bolognese
+    - carbonara
+    - 'pizza 🍕': pizza
+    - focaccia
+    - 'salad 🥗': salad
+    - sugar
+    - cake
+    - 'pancake 🥞': pancake
+    - caviar
+    - 'candy 🍬': candy
+    - 'donut 🍩': donut
+    - 'chocolate 🍫': chocolate
+    - quiche
+    - 'pie 🥧': pie
+    - 'salt 🧂': salt
+    - 'nut 🌰': nut
+    - muesli
+    - 'berry 🍒': berry
+    - 'olive 🫒': olive
+    - "olive oil": "olive oil"
+    - flakes: "flakes?"

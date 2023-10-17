@@ -1,50 +1,38 @@
-import time
 from flask import Flask, request, jsonify
-from PIL import Image
 import json
-import os
-from io import BytesIO
-import requests
 from transformers import pipeline
-from api.utils import read_file
+
+from api.utils import read_file, match_categories, exclude_categories
 from api.model_response import GenerationStatus, ModelResponse
 from api.text_generator import TextGenerator
+
+import sys
+sys.path.append('.')
+
+import nltk
+from nltk.stem.wordnet import WordNetLemmatizer
+nltk.download('wordnet')
 
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 
 config = read_file('api/config/config.yaml')
 
+
 image_to_text = pipeline(
-    "image-to-text", model="Salesforce/blip-image-captioning-large")
+    "image-to-text", model="Salesforce/blip-image-captioning-base")
 text_to_text = TextGenerator(
-    food_items_filepath='api/items/food.txt',
-    furniture_items_filepath='api/items/furniture.txt',
+    food_items='api/items/food.txt',
+    furniture_items='api/items/furniture.txt',
     template=config['template'],
     open_ai_key=config['open_ai_key'],
     model_name=config['model_name']
 )
 
+lemmatizer = WordNetLemmatizer()
 
-@app.errorhandler(404)
-def not_found(e):
-    return app.send_static_file('index.html')
-
-
-@app.route('/')
-def index():
-    return app.send_static_file('index.html')
-
-
-@app.route('/api/time')
-def get_current_time():
-    return {'time': time.time()}
-
-
-def read_image(url):
-    response = requests.get(url)
-    image = Image.open(BytesIO(response.content))
-    return image
+all_categories = read_file('api/all_categories.yaml')
+all_exclusive_categories = read_file('api/exclusive_categories.yaml')
 
 
 def generate_text(id, url):
@@ -100,16 +88,10 @@ def generate():
         word_number=params['wordNumber']
     )
     print(f'Text to text: {text_to_text_result}')
-    tags = {
-        1: ['fruit', 'banana', 'burger'],
-        2: ['kiwi', 'spaghetti'],
-        3: ['kiwi'],
-        4: ['kiwi'],
-        5: ['fruit', 'banana', 'burger'],
-        6: ['kiwi', 'spaghetti'],
-        7: ['kiwi'],
-        8: ['kiwi'],
-        9: ['orange']
-
-    }
-    return jsonify({'image_captions': image_to_text_result['text'], 'generated_text': text_to_text_result, 'tags': tags}), 200
+    categories = [
+        [] if text is None or text == ''
+        else exclude_categories(all_exclusive_categories, match_categories(all_categories, lemmatizer, text))
+        for text in image_to_text_result['text']
+    ]
+    print('Categories:', categories)
+    return jsonify({'image_captions': image_to_text_result['text'], 'generated_text': text_to_text_result, 'tags': categories}), 200
