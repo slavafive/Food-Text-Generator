@@ -1,3 +1,0 @@
-open_ai_key: "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"
-model_name: 'text-davinci-003'
-template: "Question: given the following descriptions of photos, create a text for an Instagram account of an restaurant named {restaurant} that would attract a lot of clients. Keep the length of the generated text equal to {word_number} words. Description contains information about food or / and the restaurant furniture. If you see furniture keywords, give a positive impression about it for a visitor. If there are objects not related to the food or the restaurant, ignore them and do not use for the text generation. Add emojis to make text more stand out.\nDescriptions: {descriptions}\n\nThis is the end."

@@ -51,7 +51,6 @@ def generate_text(id, url):
 def generate_image_to_texts(urls):
     responses = [generate_text(id, url) for id, url in enumerate(urls, 1)]
     statuses = ModelResponse.get_statuses(responses)
-    print(f"Statuses: {statuses}")
     if len(statuses) > 0:
         return {'error': True, 'text': ModelResponse.generate_error_message(statuses)}
     return {'error': False, 'text': [response.generated_text for response in responses]}
@@ -81,17 +80,14 @@ def generate():
     image_to_text_result = generate_image_to_texts(urls)
     if image_to_text_result['error']:
         return jsonify({'message': image_to_text_result['text']}), 400
-    print(f"Generated texts: {image_to_text_result['text']}")
     text_to_text_result = text_to_text.generate(
         descriptions=image_to_text_result['text'],
         restaurant=params['restaurant'],
         word_number=params['wordNumber']
     )
-    print(f'Text to text: {text_to_text_result}')
     categories = [
         [] if text is None or text == ''
         else exclude_categories(all_exclusive_categories, match_categories(all_categories, lemmatizer, text))
         for text in image_to_text_result['text']
     ]
-    print('Categories:', categories)
     return jsonify({'image_captions': image_to_text_result['text'], 'generated_text': text_to_text_result, 'tags': categories}), 200

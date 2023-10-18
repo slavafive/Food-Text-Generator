@@ -1,5 +1,5 @@
 - fruit:
-    - fruit
+    - fruits: fruit
     - apple
     - "banana 🍌": banana
     - "cherry 🍒": cherry
@@ -34,7 +34,7 @@
     - grapefruit
     - lychee
 - vegetable:
-    - vegetable
+    - vegetables: vegetable
     - artichoke
     - asparagus
     - beet
@@ -134,7 +134,6 @@
     - cutlet
     - 'duck 🦆': duck
     - 'goat 🐐': goat
-    - ham
     - lamb
     - 'pork 🐷': pork
     - 'rabbit 🐰': rabbit

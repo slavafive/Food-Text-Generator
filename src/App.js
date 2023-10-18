@@ -12,8 +12,6 @@ function TagList({ tags }) {
 }
 
 function App() {
-  const MIN_WORD_NUMBER = 50;
-  const MAX_WORD_NUMBER = 150;
   const MIN_URL_NUMBER = 1;
   const MAX_URL_NUMBER = 9;
 
@@ -29,9 +27,6 @@ function App() {
   }
   const [tags, setTags] = useState(emptyTags);
 
-  const [wordNumber, setWordNumber] = useState(
-    (MIN_WORD_NUMBER + MAX_WORD_NUMBER) / 2
-  );
   const getBackgroundSize = (value, max_value) => {
     return {
       backgroundSize: `${(value * 100) / max_value}% 100%`,
@@ -53,7 +48,7 @@ function App() {
     const params = {
       urls: urls,
       restaurant: restaurant,
-      wordNumber: wordNumber,
+      wordNumber: 200
     };
 
     const requestOptions = {
@@ -66,10 +61,7 @@ function App() {
     const data = await response.json();
     setShowLoader(false);
     if (response.ok) {
-      console.log("Generated text:");
-      console.log(data);
       setGeneratedText(data["generated_text"]);
-      console.log("Tags:", data["tags"]);
       const newTags = [];
       for (const [index, indexTags] of Object.entries(data["tags"])) {
         newTags.push(indexTags);
@@ -77,7 +69,6 @@ function App() {
       for (let i = Object.keys(data["tags"]).length; i < MAX_URL_NUMBER; i++) {
         newTags.push([]);
       }
-      console.log("New tags:", newTags);
       setTags(newTags);
     } else {
       alert(data["message"]);
@@ -101,6 +92,8 @@ function App() {
             onChange={(event) => setRestaurant(event.target.value)}
           />
         </label>
+        <br />
+
         <div className="table">
           <div>Choose the number of photos to be processed</div>
           <div>
@@ -115,21 +108,6 @@ function App() {
           </div>
           <div>{urlNumber}</div>
 
-          <div>Choose the number of words to be generated</div>
-          <div>
-            <input
-              type="range"
-              min={MIN_WORD_NUMBER}
-              max={MAX_WORD_NUMBER}
-              onChange={(e) => setWordNumber(e.target.value)}
-              style={getBackgroundSize(
-                wordNumber - MIN_WORD_NUMBER,
-                MAX_WORD_NUMBER - MIN_WORD_NUMBER
-              )}
-              value={wordNumber}
-            />
-          </div>
-          <div>{wordNumber}</div>
         </div>
         <br />
         <form onSubmit={onSubmit}>

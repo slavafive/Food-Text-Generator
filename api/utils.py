@@ -15,7 +15,7 @@ def extract_items(string, pattern):
 
 
 def compile_regex_from_items(items):
-    regex = r'\b(' + '|'.join(re.escape(item) for item in items) + r')\b'
+    regex = r'(' + '|'.join(re.escape(item) for item in items) + r')'
     return re.compile(regex)
 
 
@@ -40,7 +40,6 @@ def exclude_categories(all_exclusive_categories, matched_categories):
     for exclusive_categories in all_exclusive_categories:
         category = list(exclusive_categories.keys())[0]
         if category in matched_categories:
-            print(list(exclusive_categories.values())[0])
             for exclusive_category in list(exclusive_categories.values())[0]:
                 matched_categories.discard(exclusive_category)
     return list(sorted(matched_categories))

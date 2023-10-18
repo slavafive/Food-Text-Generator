@@ -51,7 +51,6 @@ class TextGenerator:
 
     def generate(self, descriptions, restaurant="Daddy Burgers", word_number=100):
         formatted_descriptions = self._format_descriptions(descriptions)
-        print(f"Formatted descriptions:\n{formatted_descriptions}")
         if formatted_descriptions == '':
             return 'Could not generate text as provided images are not related to food.'
         # return self.template.format(descriptions=formatted_descriptions, word_number=word_number, restaurant=restaurant)
