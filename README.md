@@ -1,5 +1,15 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Food-Text-Generator
+This app creates text captions for food images which can be used for maintaining social media of a restaurant.
 
-A Flask based API backend was added in the *api* directory.
+A user can pass up to 9 photos as input which are then categorised into one or several food classes. After that, the information is formatted and passed to an OpenAI model which generates a corresponding text caption.
 
-Read my [tutorial](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project) on how to create Flask + React combined projects.
+## How to use 🧑‍💻
+To run the app locally, clone the repository and set the OpenAI config key in [config.yaml](https://github.com/slavafive/Food-Text-Generator/blob/master/api/config/config.yaml) file
+```yaml
+open_ai_key: "YOUR_API_KEY"
+```
+
+## Technical stack ⚙️
+* *Frontend*: HTML, CSS, JavaScript, React.js
+* *Backend*: Python, Flask
+* *Machine Learning*: langchain, transformers, nltk
