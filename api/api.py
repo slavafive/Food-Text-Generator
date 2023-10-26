@@ -16,14 +16,14 @@ nltk.download('wordnet')
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 
-config = read_file('api/config/config.yaml')
+config = read_file('config/config.yaml')
 
 
 image_to_text = pipeline(
     "image-to-text", model="Salesforce/blip-image-captioning-base")
 text_to_text = TextGenerator(
-    food_items='api/items/food.txt',
-    furniture_items='api/items/furniture.txt',
+    food_items='items/food.txt',
+    furniture_items='items/furniture.txt',
     template=config['template'],
     open_ai_key=config['open_ai_key'],
     model_name=config['model_name']
@@ -31,8 +31,8 @@ text_to_text = TextGenerator(
 
 lemmatizer = WordNetLemmatizer()
 
-all_categories = read_file('api/all_categories.yaml')
-all_exclusive_categories = read_file('api/exclusive_categories.yaml')
+all_categories = read_file('all_categories.yaml')
+all_exclusive_categories = read_file('exclusive_categories.yaml')
 
 
 def generate_text(id, url):
