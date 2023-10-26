@@ -37,7 +37,7 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-Make sure to use Python >= 3.9.0
+Make sure to use the version of Python greater than 3.9.0.
 
 5. Install the required dependencies:
 ```bash
