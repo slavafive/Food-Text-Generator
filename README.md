@@ -37,6 +37,8 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
+Make sure to use Python >= 3.9.0
+
 5. Install the required dependencies:
 ```bash
 pip3 install -r requirements.txt
@@ -55,13 +57,18 @@ sudo flask run
 
 <img width="568" alt="image" src="https://github.com/slavafive/Food-Text-Generator/assets/42523164/f3139b1c-e3d8-4a3b-81a0-9cbc0a7cd67c">
 
+
 Then insert the copied URL into the application input field.
+
 
 <img width="730" alt="image" src="https://github.com/slavafive/Food-Text-Generator/assets/42523164/596fa536-ec74-4a2c-a25c-6bbadd50c682">
 
+
 After inserting the desired URLs, click the *"Generate"* button. This will classify each image into one of available food classes and create an image caption describing the group of photos.
 
+
 <img width="1511" alt="image" src="https://github.com/slavafive/Food-Text-Generator/assets/42523164/e42892f6-35ce-4124-bf3c-bc8fd506703d">
+
 
 *Note. Expect to wait up to 10 seconds for a single image to be processed.*
 
