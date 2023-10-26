@@ -20,7 +20,7 @@ config = read_file('config/config.yaml')
 
 
 image_to_text = pipeline(
-    "image-to-text", model="Salesforce/blip-image-captioning-base")
+    "image-to-text", model="Salesforce/blip-image-captioning-large")
 text_to_text = TextGenerator(
     food_items='items/food.txt',
     furniture_items='items/furniture.txt',
